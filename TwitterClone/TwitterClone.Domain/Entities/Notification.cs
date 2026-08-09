@@ -52,4 +52,15 @@ public class Notification
     {
         get { return _createdAt; }
     }
+
+    public Notification(Guid userId,Guid senderId,string type,Guid? tweetId)
+    {
+        _id = Guid.NewGuid();
+        _userId = userId;
+        _senderId = senderId;
+        _type = type;
+        _tweetId = tweetId;
+        _isRead = false;
+        _createdAt = DateTime.UtcNow;
+    }
 }

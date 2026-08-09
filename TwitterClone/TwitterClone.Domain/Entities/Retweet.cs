@@ -26,4 +26,10 @@ public class Retweet
     {
         get { return _retweetAt; }
     }
+    public Retweet(Guid userId, Guid tweetId)
+    {
+        _userId = userId;
+        _tweetId = tweetId;
+        _retweetAt = DateTime.UtcNow;
+    }
 }

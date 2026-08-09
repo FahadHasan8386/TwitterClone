@@ -26,4 +26,10 @@ public class Bookmark
     {
         get { return _bookmarkedAt; }
     }
+    public Bookmark(Guid userId, Guid tweetId)
+    {
+        _userId = userId;
+        _tweetId = tweetId;
+        _bookmarkedAt = DateTime.UtcNow;
+    }
 }

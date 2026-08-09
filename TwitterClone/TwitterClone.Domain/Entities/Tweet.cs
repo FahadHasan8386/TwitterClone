@@ -25,4 +25,10 @@ public class Tweet
          get{  return _content; }
          set{ _content = value; }
     }
+    public Tweet(Guid authorId, string content)
+    {
+        _id = Guid.NewGuid();
+        _authorId = authorId;
+        _content = content;
+    }
 }

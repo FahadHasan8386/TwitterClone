@@ -13,9 +13,12 @@ public class User
     private string _lastName;
     private string _email;
 
-    public User()
+    public User(string firstName, string lastName, string email)
     {
         _id = Guid.NewGuid();
+        _firstName = firstName;
+        _lastName = lastName;
+        _email = email;
     }
 
     public Guid Id

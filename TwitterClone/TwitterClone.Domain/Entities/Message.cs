@@ -39,4 +39,13 @@ public class Message
     {
         get { return _sentAt; }
     }
+
+    public Message(Guid senderId, Guid receiverId, string content)
+    {
+        _id = Guid.NewGuid();
+        _senderId = senderId;
+        _receiverId = receiverId;
+        _content = content;
+        _sentAt = DateTime.UtcNow;
+    }
 }
