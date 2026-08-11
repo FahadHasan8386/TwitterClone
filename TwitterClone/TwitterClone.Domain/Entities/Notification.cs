@@ -6,29 +6,24 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities;
 
-public class Notification
+public class Notification : BaseEntity
 {
-    private Guid _id;
     private Guid _userId;
-    private Guid _senderId;
-    private string _type = string.Empty;
-    private Guid? _tweetId;
+    private string _type;
+    private string _message;
     private bool _isRead;
-    private DateTime _createdAt;
 
-    public Guid Id
+
+    public Notification(string notificationType) : base(Guid.NewGuid())
     {
-        get { return _id; }
+        _type = notificationType;
     }
+
 
     public Guid UserId
     {
         get { return _userId; }
-    }
-
-    public Guid SenderId
-    {
-        get { return _senderId; }
+        set { _userId = value; }
     }
 
     public string Type
@@ -37,9 +32,10 @@ public class Notification
         set { _type = value; }
     }
 
-    public Guid? TweetId
+    protected string Message
     {
-        get { return _tweetId; }
+        get { return _message; }
+        set { _message = value; }
     }
 
     public bool IsRead
@@ -48,19 +44,9 @@ public class Notification
         set { _isRead = value; }
     }
 
-    public DateTime CreatedAt
+    public override string DescribeRecord()
     {
-        get { return _createdAt; }
-    }
-
-    public Notification(Guid userId,Guid senderId,string type,Guid? tweetId)
-    {
-        _id = Guid.NewGuid();
-        _userId = userId;
-        _senderId = senderId;
-        _type = type;
-        _tweetId = tweetId;
-        _isRead = false;
-        _createdAt = DateTime.UtcNow;
+        var baseRecord = base.DescribeRecord();
+        return $"{baseRecord}, UserId: {UserId}, Type: {Type}, Message: {Message}, IsRead: {IsRead}";
     }
 }
