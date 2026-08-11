@@ -10,25 +10,17 @@ public class Like
 {
     private Guid _userId;
     private Guid _tweetId;
-    private DateTime _likeAt;
-
+    private DateTime _likedAt;
     public Guid UserId
     {
         get { return _userId; }
     }
     public Guid TweetId
     {
-        get{  return _tweetId; }
+        get { return _tweetId; }
     }
-    public DateTime LikeAt
+    public DateTime LikedAt
     {
-        get{ return _likeAt; }
-    }
-
-    public Like(Guid userId, Guid tweetId)
-    {
-        _userId = userId;
-        _tweetId = tweetId;
-        _likeAt = DateTime.UtcNow;
+        get { return _likedAt; }
     }
 }
