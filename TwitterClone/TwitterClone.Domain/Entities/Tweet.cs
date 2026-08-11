@@ -6,29 +6,32 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities;
 
-public class Tweet
+public class Tweet : BaseEntity
 {
-    private Guid _id;
-    private Guid _authorId;
+    private Guid _userId;
     private string _content;
 
-    public Guid Id
+    public Tweet(string content) : base(Guid.NewGuid())
     {
-        get { return _id; }
-    }
-    public Guid AuthorId
-    {
-         get { return _authorId; }
-    }
-    public string Content
-    {
-         get{  return _content; }
-         set{ _content = value; }
-    }
-    public Tweet(Guid authorId, string content)
-    {
-        _id = Guid.NewGuid();
-        _authorId = authorId;
         _content = content;
     }
+
+    public Guid UserId
+    {
+        get { return _userId; }
+        set { _userId = value; }
+    }
+
+    public string Content
+    {
+        get { return _content; }
+        set { _content = value; }
+    }
+
+    public override string DescribeRecord()
+    {
+        var baseRecord = base.DescribeRecord();
+        return $"{baseRecord}, UserId: {UserId}, Content: {Content}";
+    }
+
 }

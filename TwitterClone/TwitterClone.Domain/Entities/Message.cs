@@ -6,27 +6,29 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities;
 
-public class Message
+public class Message : BaseEntity
 {
-    private Guid _id;
     private Guid _senderId;
     private Guid _receiverId;
-    private string _content = string.Empty;
+    private string _content;
     private DateTime _sentAt;
+    private bool _isRead;
 
-    public Guid Id
+    public Message() : base(Guid.NewGuid())
     {
-        get { return _id; }
+
     }
 
     public Guid SenderId
     {
         get { return _senderId; }
+        set { _senderId = value; }
     }
 
     public Guid ReceiverId
     {
         get { return _receiverId; }
+        set { _receiverId = value; }
     }
 
     public string Content
@@ -38,14 +40,19 @@ public class Message
     public DateTime SentAt
     {
         get { return _sentAt; }
+        set { _sentAt = value; }
     }
 
-    public Message(Guid senderId, Guid receiverId, string content)
+    public bool IsRead
     {
-        _id = Guid.NewGuid();
-        _senderId = senderId;
-        _receiverId = receiverId;
-        _content = content;
-        _sentAt = DateTime.UtcNow;
+        get { return _isRead; }
+        set { _isRead = value; }
+    }
+
+    public override string DescribeRecord()
+    {
+        var baseRecord = base.DescribeRecord();
+        return $"{baseRecord}, SenderId: {SenderId}, ReceiverId: {ReceiverId}, Content: {Content}, SentAt: {SentAt}, IsRead: {IsRead}";
     }
 }
+
