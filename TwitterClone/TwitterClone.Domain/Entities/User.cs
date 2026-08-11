@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,14 +9,15 @@ namespace TwitterClone.Domain.Entities;
 
 public class User : BaseEntity
 {
+    public User() : base(Guid.NewGuid())
+    {
+
+    }
+
     private string _firstName;
     private string _lastName;
     private string _email;
 
-    public User() : base(Guid.NewGuid())
-    {
-       
-    }
 
     public string FirstName
     {
@@ -33,5 +35,11 @@ public class User : BaseEntity
     {
         get { return _email; }
         set { _email = value; }
+    }
+
+    public override string DescribeRecord()
+    {
+        var baseRecord = base.DescribeRecord();
+        return $"{baseRecord}, FirstName: {FirstName}, LastName: {LastName}, Email: {Email}";
     }
 }
