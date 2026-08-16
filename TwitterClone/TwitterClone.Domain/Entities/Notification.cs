@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace TwitterClone.Domain.Entities;
 
-public class Notification : BaseEntity
+public abstract class Notification : BaseEntity
 {
     private Guid _userId;
     private string _type;
-    private string _message;
+    private string _message = string.Empty;
     private bool _isRead;
 
 
@@ -49,4 +49,6 @@ public class Notification : BaseEntity
         var baseRecord = base.DescribeRecord();
         return $"{baseRecord}, UserId: {UserId}, Type: {Type}, Message: {Message}, IsRead: {IsRead}";
     }
+
+    public abstract string GetMessage();    
 }

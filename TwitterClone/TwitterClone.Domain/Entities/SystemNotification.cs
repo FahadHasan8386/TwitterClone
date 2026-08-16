@@ -22,4 +22,8 @@ public class SystemNotification : Notification
     {
         return base.DescribeRecord();
     }
+    public override string GetMessage()
+    {
+        return $"System Error Occurred!";
+    }
 }
