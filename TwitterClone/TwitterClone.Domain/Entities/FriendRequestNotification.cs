@@ -4,26 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TwitterClone.Domain.Entities
+namespace TwitterClone.Domain.Entities;
+
+public class FriendRequestNotification : Notification
 {
-    public class FriendRequestNotification : Notification
+    public FriendRequestNotification(Guid requestedByUserId) : base("FriendRequest")
     {
-        public FriendRequestNotification(Guid requestedByUserId) : base("FriendRequest")
-        {
-            RequestedByUserId = requestedByUserId;
-        }
+        RequestedByUserId = requestedByUserId;
+    }
 
-        public Guid RequestedByUserId { get; set; }
+    public Guid RequestedByUserId { get; set; }
 
-        public void AddMessage(string message)
-        {
-            Message = message;
-        }
+    public void AddMessage(string message)
+    {
+        Message = message;
+    }
 
-        public override string DescribeRecord()
-        {
-            var baseRecord = base.DescribeRecord();
-            return $"{baseRecord}, RequestedByUserId: {RequestedByUserId}";
-        }
+    public override string DescribeRecord()
+    {
+        var baseRecord = base.DescribeRecord();
+        return $"{baseRecord}, RequestedByUserId: {RequestedByUserId}";
+    }
+    public override string GetMessage()
+    {
+        return $"User with ID {RequestedByUserId} sent you a friend request";
     }
 }

@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "TwitterClone.Domain": {
+      "commandName": "Project"
+    }
+  }
+}
