@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TwitterClone.Domain.Interface;
 
 namespace TwitterClone.Domain.Entities;
 
-public class Tweet : BaseEntity
+public class Tweet : BaseEntity , ILikeable
 {
     private Guid _userId;
     private string _content;
@@ -34,4 +35,8 @@ public class Tweet : BaseEntity
         return $"{baseRecord}, UserId: {UserId}, Content: {Content}";
     }
 
+    public bool CanBeLike()
+    {
+        return true;
+    }
 }

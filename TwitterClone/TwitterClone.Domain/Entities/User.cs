@@ -4,20 +4,21 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using TwitterClone.Domain.Interface;
 
 namespace TwitterClone.Domain.Entities;
 
-public class User : BaseEntity
+public class User : BaseEntity , IFollowable , INotifiable
 {
-    public User() : base(Guid.NewGuid())
-    {
-
-    }
 
     private string _firstName;
     private string _lastName;
     private string _email;
 
+    public User() : base(Guid.NewGuid())
+    {
+
+    }
 
     public string FirstName
     {
@@ -42,4 +43,32 @@ public class User : BaseEntity
         var baseRecord = base.DescribeRecord();
         return $"{baseRecord}, FirstName: {FirstName}, LastName: {LastName}, Email: {Email}";
     }
+
+    private List<Guid> Followers = new List<Guid>();
+    private List<Guid> Notifications = new List<Guid>();
+
+    public void Follow(Guid userId)
+    {
+        if(!Followers.Contains(userId))
+        {
+            Followers.Add(userId);
+        }
+    }
+
+    public void Unfollow(Guid userId)
+    {
+        if(Followers.Contains(userId))
+        {
+            Followers.Remove(userId);
+        }
+    }
+
+    public void AddNotification(Guid notificationId)
+    {
+        if (!Notifications.Contains(notificationId)) 
+        { 
+            Notifications.Add(notificationId); 
+        }
+    }
 }
+
