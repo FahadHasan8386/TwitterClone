@@ -38,6 +38,14 @@ public class User : BaseEntity , IFollowable , INotifiable
         set { _email = value; }
     }
 
+    public User(Guid id, string email, string firstName, string lastName, DateTime createdAt, Guid createdBy)
+        : base(id) 
+    {
+        Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+    }
+
     public override string DescribeRecord()
     {
         var baseRecord = base.DescribeRecord();
