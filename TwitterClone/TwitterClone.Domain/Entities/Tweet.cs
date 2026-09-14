@@ -29,6 +29,13 @@ public class Tweet : BaseEntity , ILikeable
         set { _content = value; }
     }
 
+    public Tweet(Guid id, Guid userId, string content, DateTime createdAt, Guid createdBy)
+        : base(id)
+    {
+        UserId = userId;
+        Content = content;
+    }
+
     public override string DescribeRecord()
     {
         var baseRecord = base.DescribeRecord();
