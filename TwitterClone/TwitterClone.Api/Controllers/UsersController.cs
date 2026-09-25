@@ -5,41 +5,21 @@ namespace TwitterClone.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+//[Authorize]
 public class UsersController : ControllerBase
 {
+    private readonly UserRepository _userRepository;
+
+    public UsersController(UserRepository userRepository)
+    {
+        _userRepository = userRepository;
+    }
+
     [HttpGet]
     public IActionResult GetUsers()
     {
-        var user1 = new User(
-          Guid.NewGuid(),
-          "harry_potter@gmail.com",
-          "Harry Potter",
-          "Harry",
-          DateTime.UtcNow,
-          Guid.NewGuid()
-        );
-
-        var user2 = new User(
-         Guid.NewGuid(),
-         "percy_jackson@gmail.com",
-         "Percy Jackson",
-         "Percy",
-         DateTime.UtcNow,
-         Guid.NewGuid()
-       );
-
-        var user3 = new User(
-          Guid.NewGuid(),
-          "frodo_baggins@gmail.com",
-          "Frodo Baggins",
-          "Frodo",
-          DateTime.UtcNow,
-          Guid.NewGuid()
-        );
-
-        return Ok(new List<User>
-{
-  user1, user2, user3
-});
+        var users = _userRepository.GetUsers();
+        return Ok(users);
     }
+
 }
