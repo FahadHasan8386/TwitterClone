@@ -5,12 +5,12 @@ namespace TwitterClone.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TweetsController : ControllerBase
+    public class TwittersController : ControllerBase
     {
 
         private readonly IConfiguration _config;
 
-        public TweetsController(IConfiguration config)
+        public TwittersController(IConfiguration config)
         {
             _config = config;
         }
