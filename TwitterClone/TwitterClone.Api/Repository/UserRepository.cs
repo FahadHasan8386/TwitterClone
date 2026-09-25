@@ -1,6 +1,6 @@
 ﻿using TwitterClone.Domain.Entities;
 
-namespace TwitterClone.Api.Data
+namespace TwitterClone.Api.Repository
 {
     public class UserRepository
     {
