@@ -1,5 +1,5 @@
 ﻿
-namespace TwitterClone.Api.Dtos
+namespace TwitterClone.Application.Dtos
 {
     public class TweetDto
     {
