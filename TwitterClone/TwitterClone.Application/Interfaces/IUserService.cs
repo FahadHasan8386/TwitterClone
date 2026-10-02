@@ -12,7 +12,7 @@ namespace TwitterClone.Application.Interfaces
         UserDto  CreateUser(CreateUserRequest createUserDto);
         UserDto GetUserById(Guid userId);
         UserDto UpdateUser(UpdateUserRequest updateUserDto);
-        
-
+        bool DeleteUser(Guid userId);
+        List<UserDto> GetAllUsers();
     }
 }
