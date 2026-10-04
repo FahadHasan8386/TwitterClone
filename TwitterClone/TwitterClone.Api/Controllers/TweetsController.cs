@@ -2,6 +2,7 @@
 using TwitterClone.Api.Repository;
 using TwitterClone.Application.Dtos;
 using TwitterClone.Domain.Entities;
+using TwitterClone.Infrastructure.Repositories;
 
 namespace TwitterClone.Api.Controllers;
 

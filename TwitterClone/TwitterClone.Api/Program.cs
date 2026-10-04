@@ -1,4 +1,6 @@
 using TwitterClone.Api.Repository;
+using TwitterClone.Application.Interfaces.Repository;
+using TwitterClone.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<UserRepository>();
+builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<TweetRepository>();
 
 var app = builder.Build();

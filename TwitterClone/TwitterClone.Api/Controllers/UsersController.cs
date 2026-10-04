@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TwitterClone.Api.Repository;
 using TwitterClone.Application.Dtos;
-using TwitterClone.Application.Interfaces;
-using TwitterClone.Domain.Entities;
+using TwitterClone.Application.Interfaces.Service;
 
 namespace TwitterClone.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-//[Authorize]
+// [Authorize]
 public class UsersController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -19,6 +17,7 @@ public class UsersController : ControllerBase
         _userService = userService;
     }
 
+    // GET: api/users
     [HttpGet]
     public IActionResult GetUsers()
     {
@@ -27,17 +26,21 @@ public class UsersController : ControllerBase
         return Ok(users);
     }
 
+    // POST: api/users
     [HttpPost]
     [AllowAnonymous]
-    public IActionResult CreateUser([FromBody] CreateUserRequest request)
+    public IActionResult CreateUser(
+        [FromBody] CreateUserRequest request)
     {
         var userDto = _userService.CreateUser(request);
+
         return Ok(userDto);
     }
 
-    // /api/users/{id}
-    [HttpGet("{id}")]
-    public IActionResult GetUserById([FromRoute] Guid id)
+    // GET: api/users/{id}
+    [HttpGet("{id:guid}")]
+    public IActionResult GetUserById(
+        [FromRoute] Guid id)
     {
         var user = _userService.GetUserById(id);
 
@@ -49,12 +52,13 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-
-    // PUT /api/users/{id}
-    [HttpPut("{id}")]
-    public IActionResult UpdateUser(Guid id, [FromBody] UpdateUserRequest request)
+    // PUT: api/users/{id}
+    [HttpPut("{id:guid}")]
+    public IActionResult UpdateUser(
+        [FromRoute] Guid id,
+        [FromBody] UpdateUserRequest request)
     {
-        var user = _userService.GetUserById(id);
+        var user = _userService.UpdateUser(id, request);
 
         if (user == null)
         {
@@ -64,18 +68,18 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
-
-    // DELETE /api/users/{id}
-    [HttpDelete("{id}")]
-    public IActionResult DeleteUser([FromRoute] Guid id)
+    // DELETE: api/users/{id}
+    [HttpDelete("{id:guid}")]
+    public IActionResult DeleteUser(
+        [FromRoute] Guid id)
     {
-        var user = _userService.GetUserById(id);
+        var isDeleted = _userService.DeleteUser(id);
 
-        if (user == null)
+        if (!isDeleted)
         {
             return NotFound();
         }
 
-        return Ok(user);
+        return NoContent();
     }
 }
