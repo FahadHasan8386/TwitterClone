@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TwitterClone.Domain\TwitterClone.Domain.csproj" />
+    <ProjectReference Include="..\TwitterClone.Infrastructure\TwitterClone.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

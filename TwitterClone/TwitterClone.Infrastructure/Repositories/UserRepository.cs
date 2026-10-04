@@ -1,6 +1,11 @@
-﻿using TwitterClone.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using TwitterClone.Domain.Entities;
 
-namespace TwitterClone.Api.Repository
+namespace TwitterClone.Infrastructure.Repositories
 {
     public class UserRepository
     {
@@ -39,6 +44,5 @@ namespace TwitterClone.Api.Repository
             return _users.Remove(user);
 
         }
-
     }
 }
