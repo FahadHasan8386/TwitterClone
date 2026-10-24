@@ -12,8 +12,17 @@ public class Tweet : BaseEntity , ILikeable
     private Guid _userId;
     private string _content;
 
+    public static int MaxContentLength = 200;
+
+
     public Tweet(string content) : base(Guid.NewGuid())
     {
+        _content = content;
+    }
+
+    public Tweet(Guid userId, string content) : base(Guid.NewGuid())
+    {
+        _userId = userId;
         _content = content;
     }
 
@@ -29,11 +38,15 @@ public class Tweet : BaseEntity , ILikeable
         set { _content = value; }
     }
 
-    public Tweet(Guid id, Guid userId, string content, DateTime createdAt, Guid createdBy)
-        : base(id)
+    public void AddContent(string content)
     {
-        UserId = userId;
-        Content = content;
+        _content = content;
+    }
+
+    public void AddContent(Guid userId, string content)
+    {
+        _userId = userId;
+        _content = content;
     }
 
     public override string DescribeRecord()
@@ -42,8 +55,12 @@ public class Tweet : BaseEntity , ILikeable
         return $"{baseRecord}, UserId: {UserId}, Content: {Content}";
     }
 
-    public bool CanBeLike()
+    public bool CanBeLiked()
     {
+        if (string.IsNullOrWhiteSpace(Content))
+        {
+            return false;
+        }
         return true;
     }
 }

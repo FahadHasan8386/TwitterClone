@@ -1,41 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TwitterClone.Domain.Entities;
+﻿using TwitterClone.Application.Interfaces;
 using TwitterClone.Application.Interfaces.Repository;
+using TwitterClone.Domain.Entities;
 
 namespace TwitterClone.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository
     {
+
         private readonly List<User> _users = new List<User>();
 
-        public List<User> GetUsers()
-        {
-            return _users;
-        }
-
-        public User? GetUserById(Guid id)
-        {
-            return _users.SingleOrDefault(x => x.Id == id);
-        }
-
-        public User CreateUser(User user)
+        public User AddUser(User user)
         {
             _users.Add(user);
-            return user;
-        }
 
-        public User? GetUserByEmail(string email)
-        {
-            return _users.SingleOrDefault(x => x.Email == email);
+            return user;
         }
 
         public User UpdateUser(User user)
         {
-            _users.RemoveAll(x => x.Id == user.Id);
+            _users.RemoveAll(u => u.Id == user.Id);
             _users.Add(user);
             return user;
         }
@@ -43,7 +26,22 @@ namespace TwitterClone.Infrastructure.Repositories
         public bool DeleteUser(User user)
         {
             return _users.Remove(user);
+        }
 
+        public User? GetUserById(Guid id)
+        {
+            return _users.SingleOrDefault(u => u.Id == id);
+        }
+
+        public List<User> GetUsers()
+        {
+            return _users.ToList();
+        }
+
+        public User? GetUserByEmail(string email)
+        {
+            return _users.SingleOrDefault(u =>
+                string.Equals(u.Email, email.Trim(), StringComparison.OrdinalIgnoreCase));
         }
     }
 }

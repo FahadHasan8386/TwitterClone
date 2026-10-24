@@ -1,33 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TwitterClone.Application.Interfaces.Repository;
+﻿using TwitterClone.Application.Interfaces;
 using TwitterClone.Domain.Entities;
 
 namespace TwitterClone.Infrastructure.Repositories
 {
     public class TweetRepository : ITweetRepository
     {
-        private readonly List<Tweet> _tweets = new();
 
-        public List<Tweet> GetTweets()
-        {
-            return _tweets;
-        }
-
-        public List<Tweet> GetTweetsByUserId(Guid userId)
-        {
-            return _tweets
-                .Where(x => x.UserId == userId)
-                .ToList();
-        }
-
-        public Tweet? GetTweetById(Guid id)
-        {
-            return _tweets.SingleOrDefault(x => x.Id == id);
-        }
+        private readonly List<Tweet> _tweets = new List<Tweet>();
 
         public Tweet AddTweet(Tweet tweet)
         {
@@ -38,21 +17,34 @@ namespace TwitterClone.Infrastructure.Repositories
 
         public Tweet UpdateTweet(Tweet tweet)
         {
-            var existingTweet = GetTweetById(tweet.Id);
-
-            if (existingTweet == null)
-            {
-                return tweet;
-            }
-
-            existingTweet.Content = tweet.Content;
-
-            return existingTweet;
+            _tweets.RemoveAll(t => t.Id == tweet.Id);
+            _tweets.Add(tweet);
+            return tweet;
         }
 
         public bool DeleteTweet(Tweet tweet)
         {
             return _tweets.Remove(tweet);
+        }
+
+        public int DeleteTweetsByUserId(Guid userId)
+        {
+            return _tweets.RemoveAll(t => t.UserId == userId);
+        }
+
+        public Tweet? GetTweetById(Guid id)
+        {
+            return _tweets.SingleOrDefault(t => t.Id == id);
+        }
+
+        public List<Tweet> GetTweets()
+        {
+            return _tweets.ToList();
+        }
+
+        public List<Tweet> GetTweetsByUserId(Guid userId)
+        {
+            return _tweets.Where(t => t.UserId == userId).ToList();
         }
     }
 }
