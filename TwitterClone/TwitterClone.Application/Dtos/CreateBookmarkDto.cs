@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TwitterClone.Application.Dtos
-{
-    public class CreateBookmarkDto
-    {
-        public required Guid UserId { get; set; }
-        public required Guid TweetId { get; set; }
+namespace TwitterClone.Application.Dtos;
 
-    }
+public class CreateBookmarkDto
+{
+    public required Guid UserId { get; set; }
+    public required Guid TweetId { get; set; }
+
 }

@@ -8,5 +8,5 @@ namespace TwitterClone.Domain.Interface;
 
 public interface ILikeable
 {
-    public bool CanBeLike();
+     bool CanBeLiked();
 }
