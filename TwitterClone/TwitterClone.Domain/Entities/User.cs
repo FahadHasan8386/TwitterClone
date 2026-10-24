@@ -14,6 +14,8 @@ public class User : BaseEntity , IFollowable , INotifiable
     private string _firstName;
     private string _lastName;
     private string _email;
+    private string? _phoneNumber;
+    private string _passwordHash;
 
     public User() : base(Guid.NewGuid())
     {
@@ -37,45 +39,48 @@ public class User : BaseEntity , IFollowable , INotifiable
         get { return _email; }
         set { _email = value; }
     }
-
-    public User(Guid id, string email, string firstName, string lastName, DateTime createdAt, Guid createdBy)
-        : base(id) 
+    public string? PhoneNumber
     {
-        Email = email;
-        FirstName = firstName;
-        LastName = lastName;
+        get { return _phoneNumber; }
+        set { _phoneNumber = value; }
     }
+
+    public string PasswordHash
+    {
+        get { return _passwordHash; }
+        set { _passwordHash = value; }
+    }
+
+    private List<Guid> _followers = new List<Guid>();
+    private List<Guid> _inComingNotifications = new List<Guid>();
 
     public override string DescribeRecord()
     {
         var baseRecord = base.DescribeRecord();
-        return $"{baseRecord}, FirstName: {FirstName}, LastName: {LastName}, Email: {Email}";
+        return $"{baseRecord}, FirstName: {FirstName}, LastName: {LastName}, Email: {Email}, PhoneNumber: {PhoneNumber}";
     }
-
-    private List<Guid> Followers = new List<Guid>();
-    private List<Guid> Notifications = new List<Guid>();
 
     public void Follow(Guid userId)
     {
-        if(!Followers.Contains(userId))
+        if (!_followers.Contains(userId))
         {
-            Followers.Add(userId);
+            _followers.Add(userId);
         }
     }
 
     public void Unfollow(Guid userId)
     {
-        if(Followers.Contains(userId))
+        if (_followers.Contains(userId))
         {
-            Followers.Remove(userId);
+            _followers.Remove(userId);
         }
     }
 
     public void AddNotification(Guid notificationId)
     {
-        if (!Notifications.Contains(notificationId)) 
-        { 
-            Notifications.Add(notificationId); 
+        if (!_inComingNotifications.Contains(notificationId))
+        {
+            _inComingNotifications.Add(notificationId);
         }
     }
 }
