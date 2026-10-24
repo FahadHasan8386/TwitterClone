@@ -9,10 +9,10 @@ namespace TwitterClone.Application.Interfaces.Repository;
 
 public interface IUserRepository
 {
-    List<User> GetUsers();
-    User? GetUserById(Guid id);
-    User CreateUser(User user);
-    User? GetUserByEmail(string email);
+    User AddUser(User user);
     User UpdateUser(User user);
     bool DeleteUser(User user);
+    User? GetUserById(Guid id);
+    List<User> GetUsers();
+    User? GetUserByEmail(string email);
 }
