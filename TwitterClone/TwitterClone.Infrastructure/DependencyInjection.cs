@@ -1,14 +1,24 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using TwitterClone.Application.Interfaces;
 using TwitterClone.Application.Interfaces.Repository;
+using TwitterClone.Infrastructure.Persistence;
 using TwitterClone.Infrastructure.Repositories;
 
 namespace TwitterClone.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("TwitterCloneDb")
+                ?? throw new InvalidOperationException("Connection string 'TwitterCloneDb' is missing.");
+
+            // Registers TwitterCloneDbContext as scoped: one context per HTTP request.
+            services.AddDbContext<TwitterCloneDbContext>(options =>
+                options.UseNpgsql(connectionString));
+
             // Singletons because the repositories keep their data in memory.
             // Switch to scoped when they are backed by a real database (e.g. EF Core DbContext).
             services.AddSingleton<IUserRepository, UserRepository>();
