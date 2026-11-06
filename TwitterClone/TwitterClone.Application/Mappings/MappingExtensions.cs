@@ -12,10 +12,7 @@ namespace TwitterClone.Application.Mappings
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                CreatedAt = user.CreatedAt,
-                ModifiedAt = user.ModifiedAt
+                Email = user.Email
             };
         }
 
