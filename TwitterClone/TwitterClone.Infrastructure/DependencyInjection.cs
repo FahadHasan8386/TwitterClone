@@ -12,8 +12,11 @@ namespace TwitterClone.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("TwitterCloneDb")
-                ?? throw new InvalidOperationException("Connection string 'TwitterCloneDb' is missing.");
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            if(string.IsNullOrWhiteSpace(connectionString)) 
+            {
+                throw new Exception("Database Connection string is not found");
+            }
 
             // Registers TwitterCloneDbContext as scoped: one context per HTTP request.
             services.AddDbContext<TwitterCloneDbContext>(options =>
