@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TwitterClone.Application.Interfaces;
+using TwitterClone.Application.Interfaces.Auth;
 using TwitterClone.Application.Interfaces.Repository;
+using TwitterClone.Infrastructure.Auth;
 using TwitterClone.Infrastructure.Persistence;
 using TwitterClone.Infrastructure.Repositories;
 
@@ -21,6 +24,8 @@ namespace TwitterClone.Infrastructure
             // Registers TwitterCloneDbContext as scoped: one context per HTTP request.
             services.AddDbContext<TwitterCloneDbContext>(options => options.UseNpgsql(connectionString));
 
+            services.AddScoped<ITokenService, JwtTokenService>();
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
             // Singletons because the repositories keep their data in memory.
             // Switch to scoped when they are backed by a real database (e.g. EF Core DbContext).
             services.AddScoped<IUserRepository, UserRepository>();

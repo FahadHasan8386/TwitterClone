@@ -14,19 +14,22 @@ namespace TwitterClone.Infrastructure.Persistence
         {
         }
 
-        public DbSet<User> Users => Set<User>();
-        public DbSet<Tweet> Tweets => Set<Tweet>();
-        public DbSet<Bookmark> Bookmarks => Set<Bookmark>();
-        public DbSet<Like> Likes => Set<Like>();
-        public DbSet<Follow> Follows => Set<Follow>();
-        public DbSet<Message> Messages => Set<Message>();
-        public DbSet<Notification> Notifications => Set<Notification>();
-        public DbSet<Retweet> Retweets => Set<Retweet>();
+        public DbSet<User> Users { get; set; }
+        public DbSet<Tweet> Tweets { get; set; }
+        public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Follow> Follows { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Retweet> Retweets { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //modelBuilder.Ignore<Notification>();
             base.OnModelCreating(modelBuilder);
+            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(TwitterCloneDbContext).Assembly);
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TwitterClone.Application.Interfaces;
+using TwitterClone.Application.Interfaces.Auth;
 using TwitterClone.Application.Interfaces.Service;
 using TwitterClone.Application.Services;
 
@@ -17,6 +18,8 @@ namespace TwitterClone.Application
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IRetweetService, RetweetService>();
+
+            services.AddScoped<IAuthService , AuthService>();
 
             return services;
         }
