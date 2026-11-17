@@ -16,6 +16,12 @@ namespace TwitterClone.Infrastructure.Persistence
 
         public DbSet<User> Users { get; set; }
         public DbSet<Tweet> Tweets { get; set; }
+        public DbSet<Bookmark> Bookmarks { get; set; }
+        public DbSet<Like> Likes { get; set; }
+        public DbSet<Follow> Follows { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Retweet> Retweets { get; set; }
+        public DbSet<Message> Messages { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }

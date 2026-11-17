@@ -13,6 +13,8 @@ public abstract class Notification : BaseEntity
     private string _message ;
     private bool _isRead;
 
+    // EF Core Parameterless Constructor
+    protected Notification() : base(Guid.Empty) { }
 
     public Notification(string notificationType) : base(Guid.NewGuid())
     {
