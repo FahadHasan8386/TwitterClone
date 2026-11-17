@@ -59,6 +59,12 @@ namespace TwitterClone.Infrastructure.Repositories
                 string.Equals(u.Email, email.Trim(), StringComparison.OrdinalIgnoreCase));
         }
 
+        public void AddUserRole(UserRole userRole)
+        {
+            _context.UserRoles.Add(userRole);
+            _context.SaveChanges();
+        }
+
         public void RemoveUserRole(UserRole userRole)
         {
             _context.UserRoles.Remove(userRole);
