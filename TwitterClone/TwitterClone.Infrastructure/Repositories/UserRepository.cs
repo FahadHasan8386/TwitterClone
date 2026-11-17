@@ -15,6 +15,8 @@ namespace TwitterClone.Infrastructure.Repositories
             _context = context;
         }
 
+        private readonly List<User> _users = new List<User>();
+
         public User AddUser(User user)
         {
             _context.Users.Add(user);
@@ -55,6 +57,12 @@ namespace TwitterClone.Infrastructure.Repositories
         {
             return _context.Users.SingleOrDefault(u =>
                 string.Equals(u.Email, email.Trim(), StringComparison.OrdinalIgnoreCase));
+        }
+
+        public void RemoveUserRole(UserRole userRole)
+        {
+            _context.UserRoles.Remove(userRole);
+            _context.SaveChanges();
         }
     }
 }
