@@ -31,7 +31,7 @@ namespace TwitterClone.Infrastructure.Auth
             };
 
             var signKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
-            var expiryTime = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryTimeMinutes);
+            var expiryTime = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryTimeInMinutes);
 
             var descriptor = new SecurityTokenDescriptor()
             {
@@ -41,7 +41,7 @@ namespace TwitterClone.Infrastructure.Auth
                 Expires = expiryTime,
                 SigningCredentials = new SigningCredentials(signKey, SecurityAlgorithms.HmacSha256)
             };
-            return (_jwtHandler.CreateToken(descriptor), DateTime.UtcNow.AddMinutes(_jwtSettings.ExpiryTimeMinutes));
+            return (_jwtHandler.CreateToken(descriptor), expiryTime);
         }
     }
 }

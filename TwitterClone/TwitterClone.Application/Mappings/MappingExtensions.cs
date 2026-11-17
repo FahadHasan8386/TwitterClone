@@ -12,9 +12,25 @@ namespace TwitterClone.Application.Mappings
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                CreatedAt = user.CreatedAt,
+                ModifiedAt = user.ModifiedAt
+            };
+        }
+
+
+        public static UserDto ToDto(this CreateUserDto user)
+        {
+            return new UserDto
+            {
+                Id = Guid.NewGuid(),
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Email = user.Email
             };
         }
+
 
         public static TweetDto ToDto(this Tweet tweet)
         {
