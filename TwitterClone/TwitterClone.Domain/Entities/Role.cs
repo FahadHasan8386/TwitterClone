@@ -14,5 +14,7 @@ namespace TwitterClone.Domain.Entities
 
         public required string Name { get; set; }
 
+        public List<UserRole> UserRoles { get; set; } = new List<UserRole>();
+        public List<RolePermission> RolePermissions { get; set; } = new List<RolePermission>();
     }
 }

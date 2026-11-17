@@ -12,7 +12,7 @@ namespace TwitterClone.Domain.Constants
         public const string ClaimType = "role";
 
         public const string Admin = "Admin";
-        public const string Modarator = "Moderator";
+        public const string Moderator = "Moderator";
         public const string User = "User";
 
     }
