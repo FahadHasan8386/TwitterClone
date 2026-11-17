@@ -22,6 +22,13 @@ namespace TwitterClone.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(100);
 
+            builder.HasDiscriminator(n => n.Type)
+                .HasValue<CommentNotification>("Comment")
+                .HasValue<FriendRequestNotification>("FriendRequest")
+                .HasValue<LikeNotification>("Like")
+                .HasValue<SystemNotification>("System")
+                .HasValue<MentionNotification>("Mention");
+
             builder.Property(n => n.IsRead)
                 .IsRequired()
                 .HasDefaultValue(false);
