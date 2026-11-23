@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using TwitterClone.Domain.Interface;
 
 namespace TwitterClone.Domain.Entities;
@@ -50,6 +45,8 @@ public class User : BaseEntity , IFollowable , INotifiable
         get { return _passwordHash; }
         set { _passwordHash = value; }
     }
+
+    public List<UserRole> UserRoles { get; set; }
 
     private List<Guid> _followers = new List<Guid>();
     private List<Guid> _inComingNotifications = new List<Guid>();
