@@ -18,6 +18,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+const string FrontendCors = "Frontend";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(FrontendCors, policy => policy
+        .WithOrigins(builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+                     ?? ["http://localhost:3000"])
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
+
+
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
 builder.Services.AddSingleton<JwtSettings>(jwtSettings);
@@ -64,6 +76,9 @@ if (app.Configuration.GetValue<bool>("Database:ApplyMigrationsOnStartup"))
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(FrontendCors);
+
 
 app.UseAuthorization();
 
